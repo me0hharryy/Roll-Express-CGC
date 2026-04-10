@@ -1,0 +1,108 @@
+/* ===== FAQ Page CSS ===== */
+.faq-page {
+  min-height: 100vh;
+  padding-top: 150px;
+  padding-bottom: 6rem;
+  background: var(--color-bg);
+}
+
+.faq__container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Header */
+.faq__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.faq__header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 1;
+  color: var(--color-text-dark);
+  margin-bottom: 1rem;
+}
+
+.faq__header p {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--color-text-dark);
+  opacity: 0.8;
+}
+
+/* Accordion List */
+.faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.faq__item {
+  background: #fff; /* Crisp white box */
+  border: 3px solid var(--color-border-thick);
+  border-radius: var(--radius-md);
+  box-shadow: 4px 4px 0px var(--color-border-thick);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.faq__item:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--color-border-thick);
+}
+
+.faq__item.is-open {
+  background: var(--color-brand-green);
+  color: #fff;
+}
+
+/* Question Button */
+.faq__question {
+  width: 100%;
+  text-align: left;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--color-text-dark);
+  transition: color 0.3s ease;
+}
+
+.faq__item.is-open .faq__question {
+  color: #fff;
+}
+
+.faq__icon {
+  font-size: 2rem;
+  line-height: 0.8;
+  color: var(--color-brand-yellow); /* Pink +/- icon */
+}
+
+/* Answer */
+.faq__answer-wrap {
+  overflow: hidden;
+}
+
+.faq__answer {
+  padding: 0 2rem 1.5rem 2rem;
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #fff;
+  opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .faq__question {
+    font-size: 1.2rem;
+    padding: 1rem 1.5rem;
+  }
+  .faq__answer {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+  }
+}

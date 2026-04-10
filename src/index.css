@@ -1,0 +1,180 @@
+/* ============================================
+   ROLL EXPRESS — Premium Graphic Design System
+   "Green & Pink" + Coffee Brown Accent
+   ============================================ */
+
+:root {
+  /* Clean Premium Palette */
+  --color-bg: #FDF2F8; /* Clean Soft Blush Pink */
+  --color-text-dark: #3E2723; /* Warm Coffee Brown for all text/lines */
+  --color-brand-green: #0C6136; /* Medium Forest Green for blocks */
+  --color-brand-yellow: #FF66A3; /* Bright sharp pink */
+  
+  --color-border-thick: #3E2723; /* Coffee Brown borders */
+
+  /* Fonts */
+  --font-display: 'Anton', impact, sans-serif;
+  --font-body: 'Space Grotesk', -apple-system, sans-serif;
+
+  /* Layout */
+  --section-padding: clamp(6rem, 12vw, 10rem);
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  
+  /* Refined Shadows */
+  --shadow-bento: 4px 4px 0px var(--color-border-thick);
+  --shadow-bento-hover: 8px 8px 0px var(--color-border-thick);
+  
+  /* Smooth Easing for hover states */
+  --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text-dark);
+  line-height: 1.5;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Premium noise layer */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  z-index: 9999;
+}
+
+/* Blurred luxury orbs */
+body::before {
+  content: '';
+  position: fixed;
+  top: -20vh;
+  left: -20vw;
+  width: 140vw;
+  height: 140vh;
+  pointer-events: none;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(255, 102, 163, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(12, 97, 54, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(255, 102, 163, 0.05) 0%, transparent 60%);
+  z-index: -1;
+  filter: blur(60px);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* --- Utilities --- */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+}
+
+::selection {
+  background-color: var(--color-brand-green);
+  color: var(--color-bg);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+  border-left: 2px solid var(--color-border-thick);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-green);
+  border: 2px solid var(--color-border-thick);
+}
+
+.stroke-text {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-border-thick);
+}
+
+/* Premium Bento Button */
+.btn-bento {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 1rem 2.5rem;
+  background: var(--color-bg);
+  color: var(--color-text-dark);
+  border: 3px solid var(--color-border-thick);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-bento);
+  transition: all 0.3s var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-bento::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-brand-yellow);
+  transition: top 0.3s var(--ease-smooth);
+  z-index: -1;
+}
+
+.btn-bento:hover::before {
+  top: 0;
+}
+
+.btn-bento:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-bento-hover);
+}
+
+.btn-bento:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--color-border-thick);
+}

@@ -1,0 +1,153 @@
+/* ============================================
+   GRAND OPENING PROMO — High-Fashion Streetwear Vibe
+   ============================================ */
+
+.promo-modern {
+  position: relative;
+  min-height: 90vh;
+  background: var(--color-bg); /* Signature Pink */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border-top: 4px solid var(--color-border-thick);
+  border-bottom: 4px solid var(--color-border-thick); */
+}
+
+/* ---- Background Typographic Walls ---- */
+.promo-modern__bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-5deg);
+  width: 150vw;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.25; /* Soften so it doesn't overpower */
+}
+
+.promo-modern__marquee {
+  display: flex;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 15vw, 15rem);
+  line-height: 0.9;
+  color: var(--color-text-dark); /* Coffee brown */
+  text-transform: uppercase;
+  animation: promoMarquee 30s linear infinite;
+}
+
+/* Second line is transparent stroke running backwards */
+.promo-modern__marquee.reverse {
+  animation: promoMarqueeRev 35s linear infinite;
+  color: transparent;
+  -webkit-text-stroke: 3px var(--color-text-dark);
+  margin-top: -1rem;
+}
+
+@keyframes promoMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes promoMarqueeRev {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* ---- Hovering Center Card ---- */
+.promo-modern__main {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+}
+
+.promo-modern__card {
+  background: rgba(253, 242, 248, 0.85); /* Frosted pink glass */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 4px solid var(--color-border-thick);
+  border-radius: 32px;
+  padding: 1.5rem;
+  box-shadow: 20px 20px 0px rgba(62, 39, 35, 0.15); /* Coffee Shadow */
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+/* Core box inside the glass padding */
+.promo-modern__card-inner {
+  border: 3px dashed var(--color-text-dark);
+  border-radius: 20px;
+  padding: 5rem 3rem;
+  background: var(--color-brand-green);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.promo-modern__tag {
+  background: var(--color-brand-yellow); /* Pink */
+  color: var(--color-text-dark);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  padding: 0.6rem 1.2rem;
+  border-radius: 100px;
+  border: 2px solid var(--color-text-dark);
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.promo-modern__title {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 6rem);
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+}
+
+.promo-modern__desc {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #fff;
+  opacity: 0.9;
+  line-height: 1.6;
+  margin-bottom: 3.5rem;
+  max-width: 300px;
+}
+
+/* Punchy brutalist interaction CTA */
+.promo-modern__btn {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  background: var(--color-brand-yellow);
+  color: var(--color-text-dark);
+  border: 4px solid var(--color-text-dark);
+  padding: 1.2rem 3.5rem;
+  border-radius: 100px;
+  cursor: pointer;
+  box-shadow: 6px 6px 0px var(--color-text-dark);
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.promo-modern__btn:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0px var(--color-text-dark);
+  color: #fff;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .promo-modern { min-height: 60vh; }
+  .promo-modern__card {
+    margin: 0 1.5rem;
+    padding: 1rem;
+  }
+  .promo-modern__card-inner {
+    padding: 3rem 1.5rem;
+  }
+}

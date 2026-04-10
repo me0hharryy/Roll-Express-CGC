@@ -1,0 +1,230 @@
+.about {
+  padding: var(--section-padding) 0;
+}
+
+.about-bento-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  grid-auto-rows: minmax(350px, auto); /* Safe height */
+  gap: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.about-bento-main {
+  background: var(--color-brand-green); /* Use design theme green */
+  border-radius: 32px;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 4px 4px 0px var(--color-border-thick);
+}
+
+.about-bento-main-top {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.about-bento-main-top svg {
+  width: 24px;
+  height: 24px;
+  color: #fff;
+}
+
+.about-bento-main-top span {
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.1em;
+}
+
+.about-bento-main h2 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  line-height: 1.1;
+  color: var(--color-bg); /* Use soft pink bg for contrast */
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+  -webkit-text-stroke: 1px var(--color-border-thick);
+}
+
+.about-btn-wrap {
+  display: flex;
+  align-items: center;
+  background: var(--color-brand-yellow); /* Bright pink */
+  border: 2px solid var(--color-border-thick);
+  border-radius: 100px;
+  padding: 0.5rem;
+  width: fit-content;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  box-shadow: 2px 2px 0px var(--color-border-thick);
+}
+
+.about-btn-wrap:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0px var(--color-border-thick);
+}
+
+.about-btn-text {
+  color: var(--color-text-dark);
+  font-family: var(--font-body);
+  font-weight: 700;
+  padding: 0 1.5rem;
+}
+
+.about-btn-arrow {
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text-dark);
+}
+
+/* Image bento box with glass panel inside */
+.about-bento-tall {
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+  border-radius: 32px;
+  position: relative;
+  overflow: hidden;
+  border: 4px solid var(--color-border-thick);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* This fixes the overflow issue! Place glass at bottom with flex */
+  background: var(--color-bg);
+}
+
+.about-bento-tall img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.glass-panel {
+  position: relative;
+  z-index: 2;
+  margin: 2rem;
+  background: rgba(255, 255, 255, 0.4); /* Brighter glass base */
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 24px;
+  padding: 2.5rem;
+  color: var(--color-text-dark);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+}
+
+.glass-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.glass-top h3 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+}
+
+.glass-panel p {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #111;
+}
+
+/* Layout for bottom grids */
+.about-bento-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.bento-small-img {
+  border-radius: 32px;
+  overflow: hidden;
+  position: relative;
+  min-height: 250px; /* Safer min height */
+  border: 4px solid var(--color-border-thick);
+}
+
+.bento-small-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bento-avatar-cutout {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: var(--color-bg);
+  padding: 1.5rem;
+  border-top-right-radius: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.bento-avatar-cutout::before, .bento-avatar-cutout::after {
+  display: none; /* Removing the fake shadow trick as it breaks often on resize. Relying on solid radius instead */
+}
+
+.avatars-stack {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.avatars-stack img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--color-bg);
+  margin-left: -15px;
+}
+.avatars-stack img:first-child {
+  margin-left: 0;
+}
+
+.avatar-label {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: var(--color-text-dark);
+}
+
+@media (max-width: 1024px) {
+  .about-bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-bento-tall {
+    grid-column: 1;
+    grid-row: auto;
+    height: 500px;
+  }
+}
+@media (max-width: 600px) {
+  .about-bento-bottom {
+    grid-template-columns: 1fr;
+  }
+  .about-bento-main {
+    padding: 2.5rem;
+  }
+  .glass-panel {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+}

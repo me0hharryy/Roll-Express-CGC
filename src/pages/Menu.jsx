@@ -1,93 +1,242 @@
-import { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import menuDishes from '../assets/menu-dishes.png';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useSpring, useTransform, useMotionValueEvent } from 'framer-motion';
 import '../styles/menu.css';
 
-const categories = ['ALL', 'SIGNATURE ROLLS', 'CLASSICS', 'BEVERAGES'];
-
-const allItems = [
-  { id: 1, cat: 'SIGNATURE ROLLS', name: 'MUTTON GALOUTI', price: '₹139', desc: 'Melt-in-mouth galouti kebab, saffron mayo.' },
-  { id: 2, cat: 'SIGNATURE ROLLS', name: 'CHICKEN SEEKH', price: '₹109', desc: 'Juicy seekh kebabs with fresh salad, green chutney.' },
-  { id: 3, cat: 'CLASSICS', name: 'PANEER TIKKA', price: '₹89', desc: 'Smoky tandoori paneer, mint chutney, onion rings.' },
-  { id: 4, cat: 'CLASSICS', name: 'ALOO TIKKI', price: '₹59', desc: 'Crispy potato patty, tamarind chutney, crunchy sev.' },
-  { id: 5, cat: 'CLASSICS', name: 'EGG OMELETTE', price: '₹69', desc: 'Fluffy masala omelette with tangy sauce, onions.' },
-  { id: 6, cat: 'BEVERAGES', name: 'MASALA SHIKANJI', price: '₹49', desc: 'Refreshing lemon drink packed with Indian spices.' },
-  { id: 7, cat: 'BEVERAGES', name: 'COLD COFFEE', price: '₹79', desc: 'Thick, creamy, and loaded with caffeine.' }
+// Complete Menu Data
+const wheelCategories = [
+  {
+    id: 0,
+    title: "ALOO & VEG",
+    color: "var(--color-brand-green)",
+    items: [
+      { name: "Aloo Roll", sin: "70", dbl: "80" },
+      { name: "Tandoori Aloo Roll", sin: "80", dbl: "100" },
+      { name: "Veggie Roll", sin: "80", dbl: "100" },
+      { name: "Mix Veg. Paneer", sin: "90", dbl: "110" }
+    ]
+  },
+  {
+    id: 1,
+    title: "PANEER PREMIERE",
+    color: "var(--color-brand-yellow)",
+    items: [
+      { name: "Paneer Roll", sin: "100", dbl: "120" },
+      { name: "Paneer Malai Tikka", sin: "110", dbl: "140" },
+      { name: "Paneer Bhurji", sin: "110", dbl: "140" },
+      { name: "Achari Paneer", sin: "110", dbl: "140" }
+    ]
+  },
+  {
+    id: 2,
+    title: "TALES OF CHAAP",
+    color: "var(--color-brand-green)",
+    items: [
+      { name: "Afghani Chaap Roll", sin: "110", dbl: "130" },
+      { name: "Masala Chaap Roll", sin: "110", dbl: "130" },
+      { name: "Achari Chaap Roll", sin: "120", dbl: "140" },
+      { name: "Tandoori Chaap", sin: "120", dbl: "140" }
+    ]
+  },
+  {
+    id: 3,
+    title: "RUSTIC CHICKEN",
+    color: "var(--color-text-dark)",
+    items: [
+      { name: "Chicken Roll", sin: "100", dbl: "120" },
+      { name: "Chicken Seekh", sin: "120", dbl: "140" },
+      { name: "Chicken Malai", sin: "110", dbl: "140" },
+      { name: "Tandoori Chicken", sin: "110", dbl: "140" }
+    ]
+  },
+  {
+    id: 4,
+    title: "THE KING'S CUT",
+    color: "var(--color-brand-yellow)",
+    items: [
+      { name: "Single Mutton", sin: "120", dbl: "-" },
+      { name: "Double Mutton", sin: "150", dbl: "-" },
+      { name: "Sin. Egg Dbl. Mutton", sin: "170", dbl: "-" },
+      { name: "Dbl. Egg Dbl. Mutton", sin: "180", dbl: "-" }
+    ]
+  },
+  {
+    id: 5,
+    title: "EGG SERIES",
+    color: "var(--color-brand-green)",
+    items: [
+      { name: "Single Egg Roll", sin: "60", dbl: "-" },
+      { name: "Double / Triple Egg", sin: "70", dbl: "80" },
+      { name: "Egg Bhurji Roll", sin: "100", dbl: "-" },
+      { name: "Sin. Egg Sin. Aloo", sin: "90", dbl: "-" }
+    ]
+  },
+  {
+    id: 6,
+    title: "EGG COMBOS",
+    color: "var(--color-brand-yellow)",
+    items: [
+      { name: "Sin. Egg Sin. Paneer", sin: "110", dbl: "-" },
+      { name: "Dbl. Egg Dbl. Paneer", sin: "140", dbl: "-" },
+      { name: "Sin. Egg Sin. Chicken", sin: "110", dbl: "-" },
+      { name: "Dbl. Egg Dbl. Chicken", sin: "150", dbl: "-" }
+    ]
+  },
+  {
+    id: 7,
+    title: "BURGERS & SIDES",
+    color: "var(--color-text-dark)",
+    items: [
+      { name: "Crispy Paneer Burger", sin: "100", dbl: "-" },
+      { name: "Chicken Zinger", sin: "130", dbl: "-" },
+      { name: "Fries (Salted / Peri)", sin: "90", dbl: "100" },
+      { name: "Premium Shakes", sin: "99", dbl: "-" }
+    ]
+  }
 ];
 
 export default function Menu() {
-  const [active, setActive] = useState('ALL');
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const containerRef = useRef(null);
 
-  const filteredItems = active === 'ALL' 
-    ? allItems 
-    : allItems.filter(item => item.cat === active);
+  // 1. Get raw scroll progress
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  // 2. Inject buttery-smooth physical momentum into the scroll
+  const smoothProgress = useSpring(scrollYProgress, {
+    damping: 25,     // High damping prevents it from feeling too bouncy
+    stiffness: 80,   // Lower stiffness makes it glide smoothly
+    mass: 0.8        // Adds "weight" to the scroll
+  });
+
+  // 3. Map the smoothed scroll (0 to 1) to continuous wheel rotation (0 to -315 degrees)
+  const totalAngle = (wheelCategories.length - 1) * 45; // 7 * 45 = 315 deg
+  const wheelRotation = useTransform(smoothProgress, [0, 1], [0, -totalAngle]);
+
+  // 4. Update the active board content smoothly
+  useMotionValueEvent(smoothProgress, "change", (latest) => {
+    const newIndex = Math.round(latest * (wheelCategories.length - 1));
+    if (newIndex !== activeIndex) {
+      setActiveIndex(newIndex);
+    }
+  });
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 1024);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const activeCategory = wheelCategories[activeIndex];
+  const anglePerItem = 360 / wheelCategories.length;
+
+  const handleNodeClick = (index) => {
+    if (!containerRef.current) return;
+    const totalScrollHeight = containerRef.current.scrollHeight - window.innerHeight;
+    const targetScroll = (index / (wheelCategories.length - 1)) * totalScrollHeight;
+    window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+  };
 
   return (
-    <main className="menu-page">
-      <div className="container">
-        
-        <header className="menu-page__header">
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="menu-page__title"
-          >
-            THE FULL MENU
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="menu-page__sub"
-          >
-            Explore our curated selection.
-          </motion.p>
-        </header>
+    <div className="menu-scroll-wrapper" ref={containerRef}>
+      
+      <section className="menu-sticky-viewport">
+        <div className="menu-noise"></div>
+        <div className="menu-watermark">EXPRESS</div>
 
-        <div className="menu-page__nav">
-          {categories.map((cat, i) => (
-            <motion.button
-              key={cat}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              onClick={() => setActive(cat)}
-              className={`menu-page__cat-btn ${active === cat ? 'active' : ''}`}
+        <div className="rotary-container">
+          
+          {/* --- LEFT: The Massive Rotary Wheel --- */}
+          <div className="wheel-wrapper">
+            <motion.div 
+              className="wheel-circle"
+              style={{ rotate: wheelRotation }} // Tied directly to smooth spring
             >
-              {cat}
-            </motion.button>
-          ))}
-        </div>
-
-        <motion.div layout className="menu-page__grid">
-          <AnimatePresence mode="popLayout">
-            {filteredItems.map(item => (
-              <motion.div
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-                key={item.id}
-                className="menu__item"
-              >
-                <div className="menu__item-image-wrap">
-                  <img src={menuDishes} alt={item.name} className="menu__item-image" />
-                </div>
-                <div className="menu__item-info">
-                  <div className="menu__item-top">
-                    <h3>{item.name}</h3>
-                    <span className="price">{item.price}</span>
+              {wheelCategories.map((cat, i) => {
+                const rotationAngle = i * anglePerItem;
+                const isActive = activeIndex === i;
+                
+                // Keep the text perfectly upright while the wheel spins
+                const counterRotation = useTransform(wheelRotation, (val) => `rotate(${-rotationAngle - val}deg)`);
+                
+                return (
+                  <div 
+                    key={cat.id} 
+                    className="wheel-spoke"
+                    style={{ transform: `rotate(${rotationAngle}deg)` }}
+                  >
+                    <motion.button 
+                      className={`wheel-node ${isActive ? 'active' : ''}`}
+                      onClick={() => handleNodeClick(i)}
+                      style={{ 
+                        transform: counterRotation,
+                        backgroundColor: isActive ? cat.color : '#fff',
+                        color: isActive && cat.color === 'var(--color-text-dark)' ? '#fff' : 'var(--color-text-dark)'
+                      }}
+                    >
+                      {cat.title}
+                    </motion.button>
                   </div>
-                  <p>{item.desc}</p>
-                  <button className="menu__btn">ADD TO CART</button>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+                );
+              })}
+            </motion.div>
+            
+            <div className="wheel-hub">
+              <div className="hub-inner">MENU</div>
+            </div>
+          </div>
 
-      </div>
-    </main>
+          {/* --- RIGHT: The Dynamic Content Board --- */}
+          <div className="content-board">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeCategory.id}
+                className="board-inner"
+                initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+              >
+                
+                <div className="board-header">
+                  <span className="board-index">0{activeCategory.id + 1}</span>
+                  <h2 className="board-title">{activeCategory.title}</h2>
+                </div>
+
+                <div className="board-legend">
+                  <span>SELECTION</span>
+                  <div className="legend-prices">
+                    <span>SIN</span>
+                    <span>DBL</span>
+                  </div>
+                </div>
+
+                <div className="board-items">
+                  {activeCategory.items.map((item, idx) => (
+                    <div key={idx} className="curved-item-card">
+                      <div className="item-name-group">
+                        <div className="item-dot" style={{ backgroundColor: activeCategory.color }}></div>
+                        <span className="item-name">{item.name}</span>
+                      </div>
+                      
+                      <div className="item-prices">
+                        <span className="price">₹{item.sin}</span>
+                        <span className="price">{item.dbl !== "-" ? `₹${item.dbl}` : "-"}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+        </div>
+      </section>
+    </div>
   );
 }

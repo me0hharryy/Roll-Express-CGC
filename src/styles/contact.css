@@ -151,6 +151,7 @@
   .contact__container { 
     grid-template-columns: 1fr; 
     gap: 4rem;
+    padding: 0 1.5rem;
   }
   .contact__form-wrap { 
     padding: 3rem; 
@@ -158,14 +159,49 @@
 }
 
 @media (max-width: 600px) {
+  .contact-page {
+    padding-top: 10vh;
+  }
+  .contact__container {
+    padding: 0 1rem;
+    gap: 2.5rem;
+  }
   .contact__details { 
     flex-direction: column; 
   }
+  .contact__detail-box {
+    padding: 1.5rem;
+    border-radius: 16px;
+    border-width: 3px;
+  }
+  .contact__detail-box h3 {
+    font-size: 1.5rem;
+  }
+  .contact__detail-box p {
+    font-size: 0.95rem;
+  }
   .contact__form-wrap {
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 24px;
+    border-width: 3px;
+    box-shadow: 8px 8px 0px rgba(62, 39, 35, 0.15);
   }
   .contact__title {
-    font-size: 4rem;
+    font-size: clamp(2.5rem, 10vw, 4rem);
+  }
+  .contact__desc {
+    font-size: 1rem;
+  }
+  .contact__form input, 
+  .contact__form textarea {
+    padding: 1.1rem;
+    font-size: 1rem;
+    border-width: 3px;
+    border-radius: 12px;
+  }
+  .contact__btn {
+    font-size: 1.3rem;
+    padding: 1.2rem 1.5rem;
+    border-width: 3px;
   }
 }

@@ -80,3 +80,30 @@
     height: 300px;
   }
 }
+
+@media (max-width: 480px) {
+  .location {
+    padding: 0 0 clamp(3rem, 8vw, 6rem);
+  }
+  .location__box {
+    border-width: 3px;
+    border-radius: var(--radius-md);
+  }
+  .location__info {
+    padding: 1.5rem;
+  }
+  .location__heading {
+    font-size: clamp(2rem, 7vw, 3rem);
+    margin-bottom: 2rem;
+  }
+  .loc-label {
+    font-size: 1rem;
+  }
+  .loc-item p {
+    font-size: 0.95rem;
+  }
+  .location__image-wrap {
+    height: 220px;
+    border-top-width: 3px;
+  }
+}

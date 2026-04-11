@@ -105,6 +105,48 @@
 
 @media (max-width: 768px) {
   .spin-container {
-    transform: scale(0.7);
+    width: 320px;
+    height: 320px;
   }
+  .spin-char {
+    font-size: 1.1rem;
+  }
+  .spin-center-graphic {
+    width: 120px;
+    height: 120px;
+  }
+  .spin-pill {
+    font-size: 1rem;
+    padding: 0.4rem 1rem;
+    border-width: 3px;
+    box-shadow: 3px 3px 0px var(--color-border-thick);
+  }
+  .pill-1 { left: -10%; }
+  .pill-2 { right: -8%; }
+  .pill-3 { right: 5%; }
+}
+
+@media (max-width: 480px) {
+  .spin-section {
+    padding: clamp(3rem, 8vw, 6rem) 0;
+  }
+  .spin-container {
+    width: 250px;
+    height: 250px;
+  }
+  .spin-char {
+    font-size: 0.9rem;
+  }
+  .spin-center-graphic {
+    width: 90px;
+    height: 90px;
+    border-width: 3px;
+  }
+  .spin-pill {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.8rem;
+  }
+  .pill-1 { left: -5%; top: 15%; }
+  .pill-2 { right: -5%; }
+  .pill-3 { right: 0; bottom: 10%; }
 }

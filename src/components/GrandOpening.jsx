@@ -36,7 +36,7 @@ export default function GrandOpening() {
              <div className="promo-modern__tag">LTD TIME OFFER</div>
              
              <h2 className="promo-modern__title">50% OFF</h2>
-             <p className="promo-modern__desc">For the first 100 students at CGC Landran. Drops April 15.</p>
+             <p className="promo-modern__desc">For the first 100 students at CGC University, Mohali. <br/>Drops April 15.</p>
              
              <button className="promo-modern__btn">CLAIM NOW</button>
            </div>

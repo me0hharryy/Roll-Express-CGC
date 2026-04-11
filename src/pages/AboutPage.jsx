@@ -25,7 +25,7 @@ export default function AboutPage() {
             fontWeight: 500,
             color: 'var(--color-text-dark)',
             maxWidth: '500px',
-            marginBottom: '2rem'
+            marginBottom: '1rem'
           }}>
             From a tiny kitchen concept to a premium brutalist cafe experience at CGC Landran. We don't take flavor lightly.
           </p>

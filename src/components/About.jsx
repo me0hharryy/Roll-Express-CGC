@@ -29,7 +29,7 @@ export default function About() {
             <h2>BACK YOUR CRAVINGS WITH PREMIUM FLAVOR</h2>
             
             <div className="about-btn-wrap">
-              <span className="about-btn-text">View Story</span>
+              <a href="/story"><span className="about-btn-text" >View Story</span></a>
               <div className="about-btn-arrow">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="9 5 19 5 19 15"/></svg>
               </div>

@@ -121,16 +121,27 @@
 
 @media (max-width: 900px) {
   .navbar-pill {
-    top: 10px !important; /* Force closer to top */
-    border-radius: 24px; /* Less rounded on small screens to fit edge-to-edge better */
+    top: 10px !important;
+    border-radius: 24px;
+    width: calc(100% - 24px) !important;
   }
   .navbar__container {
     padding: 0.5rem 1rem;
+    min-height: 50px;
   }
   .navbar__left, .navbar__right {
     display: none;
   }
   .navbar__center {
     justify-content: center;
+  }
+  .navbar__logo-clean {
+    height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar__logo-clean {
+    height: 100px;
   }
 }

@@ -72,16 +72,48 @@
   opacity: 0.8;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  .reviews-header {
+    margin-bottom: 4rem;
+  }
+  .reviews-header h2 {
+    font-size: clamp(2.5rem, 10vw, 4rem);
+  }
   .reviews-stack {
-    height: 400px;
+    height: 420px;
   }
   .review-card {
     width: 260px;
-    height: 350px;
+    height: 360px;
     padding: 1.5rem;
   }
   .review-text {
     font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .reviews-section {
+    padding: clamp(3rem, 8vw, 5rem) 0;
+  }
+  .reviews-stack {
+    height: 380px;
+  }
+  .review-card {
+    width: 230px;
+    height: 320px;
+    padding: 1.2rem;
+    border-width: 3px;
+    border-radius: 12px;
+  }
+  .review-stars {
+    font-size: 1rem;
+  }
+  .review-text {
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+  .review-name {
+    font-size: 0.7rem;
   }
 }

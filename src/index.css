@@ -178,3 +178,19 @@ ul, ol {
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0px var(--color-border-thick);
 }
+
+/* ============================================
+   GLOBAL RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .btn-bento {
+    font-size: 1.1rem;
+    padding: 0.8rem 1.8rem;
+  }
+  .container {
+    padding: 0 1rem;
+  }
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+}

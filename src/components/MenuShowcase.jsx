@@ -1,86 +1,49 @@
 import { useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
-import { motion } from 'framer-motion';
-import menuDishes from '../assets/menu-dishes.png';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { featuredItems } from '../data/menuData'; 
 import '../styles/menu.css';
 
-gsap.registerPlugin(ScrollTrigger);
-
-const menuItems = [
-  {
-    name: 'PANEER TIKKA ROLL',
-    price: '₹89',
-    description: 'Smoky tandoori paneer, mint chutney, onion rings.',
-  },
-  {
-    name: 'CHICKEN SEEKH ROLL',
-    price: '₹109',
-    description: 'Juicy seekh kebabs with fresh salad, green chutney.',
-  },
-  {
-    name: 'EGG OMELETTE ROLL',
-    price: '₹69',
-    description: 'Fluffy masala omelette with tangy sauce, onions.',
-  },
-  {
-    name: 'ALOO TIKKI ROLL',
-    price: '₹59',
-    description: 'Crispy potato patty, tamarind chutney, crunchy sev.',
-  },
-];
-
 export default function MenuShowcase() {
-  const sectionRef = useRef(null);
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
 
-  useGSAP(() => {
-    gsap.fromTo('.menu__item', 
-      { opacity: 0, y: 30 },
-      {
-        opacity: 1, 
-        y: 0,
-        stagger: 0.1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 70%'
-        }
-      }
-    );
-  }, []);
+  // Parallax the marquees in opposite directions
+  const x1 = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
+  const x2 = useTransform(scrollYProgress, [0, 1], ["-30%", "0%"]);
+
+  // Duplicate items heavily to make a true infinite-feeling string of cards
+  const row1 = [...featuredItems, ...featuredItems, ...featuredItems, ...featuredItems];
+  const row2 = [...featuredItems, ...featuredItems, ...featuredItems, ...featuredItems].reverse();
 
   return (
-    <section className="menu" ref={sectionRef} id="menu">
-      <div className="container">
-        
-        <div className="menu__header">
-          <h2 className="menu__heading">THE MENU</h2>
-          <div className="menu__line" />
-        </div>
+    <section className="showcase-marquee" ref={containerRef}>
+      <div className="marquee-header">
+        <h2 className="marquee-title">SIGNATURES</h2>
+        <Link to="/menu" className="marquee-btn">EXPLORE <span>+40 ROLLS</span></Link>
+      </div>
 
-        <div className="menu__grid">
-          {menuItems.map((item, i) => (
-            <motion.div
-              key={i}
-              className="menu__item"
-              whileHover={{ scale: 1.02 }}
-            >
-              <div className="menu__item-image-wrap">
-                <img src={menuDishes} alt={item.name} className="menu__item-image" />
-              </div>
-              <div className="menu__item-info">
-                <div className="menu__item-top">
-                  <h3>{item.name}</h3>
-                  <span className="price">{item.price}</span>
-                </div>
-                <p>{item.description}</p>
-                <button className="menu__btn">ADD TO CART</button>
-              </div>
-            </motion.div>
+      <div className="marquee-track">
+        <motion.div className="marquee-row" style={{ x: x1 }}>
+          {row1.map((item, i) => (
+            <div className="marquee-card" key={i}>
+              <h3>{item.name}</h3>
+              <span>₹{item.sin || item.price}</span>
+            </div>
           ))}
-        </div>
-
+        </motion.div>
+        
+        <motion.div className="marquee-row" style={{ x: x2 }}>
+          {row2.map((item, i) => (
+            <div className="marquee-card" key={i}>
+              <h3>{item.name}</h3>
+              <span>₹{item.sin || item.price}</span>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

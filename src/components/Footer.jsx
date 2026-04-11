@@ -19,14 +19,14 @@ export default function Footer() {
                 <h4>Navigation</h4>
                 <Link to="/">Home</Link>
                 <Link to="/menu">Menu</Link>
-                <a href="#process">Process</a>
+                <Link to="/story">Our Story</Link>
               </div>
 
               <div className="footer__col">
                 <h4>Support</h4>
-                <a href="#">Contact Us</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
+                <Link to="/contact">Contact Us</Link>
+                <Link to="/privacy">Privacy Policy</Link>
+                <Link to="/terms">Terms of Service</Link>
               </div>
             </div>
 
@@ -42,7 +42,11 @@ export default function Footer() {
 
           <div className="footer__bottom">
             <span>© 2026 ROLL EXPRESS. All Rights Reserved.</span>
-            <span>Made with bold flavor.</span>
+            <span>Made by
+              <div className="footer__col"> 
+              <a href='https://www.instagram.com/therustedstudio?igsh=djFuN2prOXNyMXN6'>@ The Rusted Studio.</a>
+              </div>
+            </span>
           </div>
 
         </div>

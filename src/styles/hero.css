@@ -1,156 +1,326 @@
-.hero {
+/* ============================================
+   HERO — Engineered Kinetic Parallax Grid
+   ============================================ */
+
+.hero-grid-wrapper {
   position: relative;
-  min-height: 100vh;
-  padding-top: 100px; /* Space for navbar */
+  width: 100vw;
+  height: 100dvh;
+  min-height: 650px;
+  background-color: var(--color-bg);
+  padding: 100px clamp(1rem, 3vw, 2rem) clamp(1rem, 3vw, 2rem) clamp(1rem, 3vw, 2rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  cursor: none; /* Hide default cursor to use custom dot */
+}
+
+/* Custom Trailing Cursor */
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  background-color: var(--color-brand-yellow);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%); /* Centered on mouse */
+  mix-blend-mode: exclusion; /* Cool inverted color effect */
+}
+
+.hero-dynamic-grid {
+  width: 100%;
+  height: 100%;
+  max-width: 1600px;
+  display: grid;
+  background: var(--color-border-thick);
+  gap: 4px; 
+  border: 4px solid var(--color-border-thick);
+  border-radius: var(--radius-lg);
+  box-shadow: 10px 10px 0px var(--color-border-thick);
+  overflow: hidden;
+  will-change: grid-template-columns, grid-template-rows;
+}
+
+/* --- Panel Foundations --- */
+.grid-panel {
+  position: relative;
+  background: var(--color-bg);
+  container-type: inline-size;
+  display: flex;
+  overflow: hidden;
+}
+
+.panel-inner {
+  width: 100%;
+  height: 100%;
+  padding: clamp(1.5rem, 5cqw, 4rem);
   display: flex;
   flex-direction: column;
-  background: var(--color-bg);
-}
-
-.hero__container {
-  flex: 1;
-  display: flex;
-  align-items: center;
   justify-content: space-between;
-  max-width: 1400px;
-  margin: 0 auto;
-  width: 100%;
-  padding: 4rem 2rem;
-  gap: 4rem;
 }
 
-.hero__content {
-  flex: 1;
-  max-width: 600px;
+/* Ambient Floating Animations inside panels */
+.ambient-float {
+  animation: floatAmbient 6s ease-in-out infinite;
+}
+.ambient-float-reverse {
+  animation: floatAmbientRev 7s ease-in-out infinite;
 }
 
-.hero__title {
+@keyframes floatAmbient {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes floatAmbientRev {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(8px); }
+}
+
+/* Fluid Typography */
+.fluid-text {
   font-family: var(--font-display);
-  font-size: clamp(4rem, 8vw, 7.5rem);
-  line-height: 0.9;
+  font-size: clamp(4rem, 20cqw, 24rem);
+  line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  display: flex; /* Helps Framer Motion letter staggering */
+  overflow: hidden; /* Clips the letters as they slide up */
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.stroke-text {
+  color: transparent;
+  -webkit-text-stroke: clamp(2px, 0.5cqw, 5px) var(--color-brand-yellow);
+}
+
+/* --- Panel 1: Top Left --- */
+.panel-brand-left {
+  background: var(--color-brand-yellow);
   color: var(--color-text-dark);
-  margin-bottom: 2rem;
+}
+
+.panel-eyebrow {
+  font-family: var(--font-body);
+  font-size: clamp(0.7rem, 2.5cqw, 1.1rem);
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  padding: 0.5rem 1.2rem;
+  border: 3px solid var(--color-text-dark);
+  border-radius: 50px;
+  width: max-content;
+  background: var(--color-bg);
+  box-shadow: 4px 4px 0px var(--color-text-dark);
+}
+
+/* --- Panel 2: Top Right (Morphing Geometry) --- */
+.panel-accent {
+  background: var(--color-brand-green);
+  
+}
+
+.center-all {
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ensure centering consistency in flex context */
+.text-center {
+  text-align: center;
+}
+
+/* --- Panel 3: Bottom Left --- */
+.panel-info {
+  background: var(--color-bg);
+  color: var(--color-text-dark);
+}
+
+.align-bottom {
+  justify-content: flex-end;
+}
+
+.info-lockup {
+  width: 100%;
+}
+
+/* STRICT TEXT LOCKING: No wrapping allowed, scales by CQW */
+.no-wrap {
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.info-date {
+  font-family: var(--font-body);
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--color-brand-green);
+  margin-bottom: clamp(0.5rem, 2cqw, 1rem);
+  font-size: clamp(0.6rem, 2.5cqw, 1rem);
   text-transform: uppercase;
 }
 
-.hero__title-highlight {
-  color: var(--color-brand-green);
-}
-
-.hero__subtitle {
+.info-desc {
   font-family: var(--font-body);
-  font-size: clamp(1.1rem, 2vw, 1.3rem);
-  font-weight: 500;
-  line-height: 1.6;
-  color: var(--color-text-dark);
-  margin-bottom: 3rem;
-  opacity: 0.9;
+  /* The size adjusts fluidly to fit the container width */
+  font-size: clamp(0.6rem, 3.8cqw, 1.8rem);
+  font-weight: 600;
+  line-height: 1.3;
 }
 
-.hero__cta-group {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap; /* Important to keep buttons from crushing */
-}
-
-/* BIG Clean CTA Buttons */
-.hero__btn {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  padding: 1.2rem 3rem;
-  border-radius: 100px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  border: 3px solid var(--color-border-thick);
-  letter-spacing: 0.05em;
-}
-
-.hero__btn--primary {
-  background: var(--color-brand-yellow); /* Pink */
-  color: var(--color-text-dark);
-  box-shadow: 4px 4px 0px var(--color-border-thick);
-}
-
-.hero__btn--primary:hover {
-  transform: translateY(-4px);
-  box-shadow: 8px 8px 0px var(--color-border-thick);
-}
-
-.hero__btn--secondary {
-  background: transparent;
-  color: var(--color-text-dark);
-}
-
-.hero__btn--secondary:hover {
+/* --- Panel 4: Bottom Right --- */
+.panel-brand-right {
   background: var(--color-text-dark);
   color: var(--color-bg);
 }
 
-.hero__visual {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+.right-align {
+  align-items: flex-end;
+  text-align: right;
 }
 
-.hero__image-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 600px;
-  background: var(--color-brand-green);
-  border-radius: 32px;
-  border: 4px solid var(--color-border-thick);
-  overflow: hidden;
-  box-shadow: -15px 15px 0px rgba(7, 56, 32, 0.1);
+.cta-wrapper {
+  margin-top: auto;
+}
+
+/* Invisible Hitbox to trigger magnetic effect early */
+.magnetic-hitbox {
   padding: 2rem;
+  margin: -2rem; 
+  display: inline-block;
 }
 
-.hero__image {
-  width: 100%;
-  height: auto;
-  transform: scale(1.1); /* Pop out slightly */
-}
-
-/* Marquee at bottom */
-.hero__marquee {
-  width: 100%;
-  background: var(--color-brand-green);
-  padding: 1rem 0;
-  overflow: hidden;
-  border-top: 4px solid var(--color-border-thick);
-  border-bottom: 4px solid var(--color-border-thick);
-}
-
-.hero__marquee-inner {
+.fluid-btn {
+  font-size: clamp(1rem, 3cqw, 2rem);
+  padding: clamp(0.8rem, 2cqw, 1.5rem) clamp(1.5rem, 4cqw, 3rem);
   display: flex;
-  white-space: nowrap;
-  animation: marquee 20s linear infinite;
-  gap: 2rem;
+  align-items: center;
+  gap: clamp(0.5rem, 2cqw, 1rem);
+  /* Make sure button remains clickable under the custom cursor */
+  cursor: pointer; 
 }
 
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+.fluid-btn svg {
+  width: clamp(20px, 4cqw, 32px);
+  height: clamp(20px, 4cqw, 32px);
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.hero__marquee-text {
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 1.1rem;
-  color: var(--color-bg);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+.fluid-btn:hover svg {
+  transform: translateX(5px) translateY(-5px);
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .hero__container {
-    flex-direction: column;
-    text-align: center;
-    padding-top: 6rem;
+/* ============================================
+   RESPONSIVE FALLBACKS (Mobile / Tablet)
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .hero-grid-wrapper {
+    height: auto;
+    min-height: 100dvh;
+    cursor: auto; /* Restore normal cursor on touch/tablet */
   }
-  .hero__cta-group {
+  .custom-cursor-dot {
+    display: none;
+  }
+  .fluid-text {
+    font-size: clamp(4rem, 15cqw, 10rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-grid-wrapper {
+    padding: 80px 0.75rem 1.5rem 0.75rem;
+    min-height: 100dvh;
+  }
+  
+  .hero-dynamic-grid {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto auto auto auto !important;
+    gap: 3px;
+    border-width: 3px;
+    box-shadow: 6px 6px 0px var(--color-border-thick);
+  }
+
+  .grid-panel {
+    min-height: 200px;
+  }
+
+  .panel-brand-right .panel-inner {
+    align-items: flex-start;
+    text-align: left;
+  }
+  
+  .panel-accent {
+    min-height: 280px; 
+  }
+
+  .no-wrap {
+    white-space: normal;
+  }
+  .info-desc br {
+    display: none;
+  }
+
+  .fluid-btn {
+    width: 100%;
     justify-content: center;
+    font-size: clamp(0.9rem, 4vw, 1.2rem);
+  }
+
+  .panel-eyebrow {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.9rem;
+    border-width: 2px;
+    box-shadow: 3px 3px 0px var(--color-text-dark);
+  }
+
+  .magnetic-hitbox {
+    padding: 1rem;
+    margin: -1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-grid-wrapper {
+    padding: 70px 0.5rem 1rem 0.5rem;
+  }
+
+  .hero-dynamic-grid {
+    gap: 2px;
+    border-width: 2px;
+    border-radius: var(--radius-md);
+    box-shadow: 4px 4px 0px var(--color-border-thick);
+  }
+
+  .grid-panel {
+    min-height: 160px;
+  }
+
+  .panel-accent {
+    min-height: 220px;
+  }
+
+  .panel-inner {
+    padding: clamp(1rem, 4vw, 1.5rem);
+  }
+
+  .fluid-text {
+    font-size: clamp(3rem, 18cqw, 6rem);
+  }
+
+  .info-date {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+  }
+
+  .info-desc {
+    font-size: clamp(0.55rem, 3.5cqw, 1rem);
   }
 }

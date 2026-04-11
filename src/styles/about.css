@@ -209,6 +209,7 @@
 @media (max-width: 1024px) {
   .about-bento-grid {
     grid-template-columns: 1fr;
+    padding: 0 1rem;
   }
   .about-bento-tall {
     grid-column: 1;
@@ -217,14 +218,48 @@
   }
 }
 @media (max-width: 600px) {
+  .about {
+    padding: clamp(3rem, 8vw, 6rem) 0;
+  }
+  .about-bento-grid {
+    padding: 0 0.75rem;
+  }
   .about-bento-bottom {
     grid-template-columns: 1fr;
   }
   .about-bento-main {
-    padding: 2.5rem;
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+  }
+  .about-bento-main h2 {
+    font-size: clamp(2rem, 8vw, 3rem);
+    margin-bottom: 2rem;
   }
   .glass-panel {
-    margin: 1rem;
-    padding: 1.5rem;
+    margin: 0.75rem;
+    padding: 1.2rem;
+    border-radius: 16px;
+  }
+  .glass-panel p {
+    font-size: 0.9rem;
+  }
+  .glass-top h3 {
+    font-size: 1.5rem;
+  }
+  .about-bento-tall {
+    height: 380px;
+    border-radius: 20px;
+  }
+  .bento-small-img {
+    min-height: 200px;
+    border-radius: 20px;
+  }
+  .about-btn-text {
+    font-size: 0.85rem;
+    padding: 0 1rem;
+  }
+  .about-btn-arrow {
+    width: 32px;
+    height: 32px;
   }
 }

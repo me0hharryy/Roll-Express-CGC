@@ -119,41 +119,29 @@
 }
 
 /* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .spin-sect {
+    padding: 3rem 1rem;
+  }
+  /* Force a scale to fit perfectly on mobiles while maintaining aspect */
+  .spin-sect__container {
+    transform: scale(0.85);
+  }
+}
+
 @media (max-width: 768px) {
   .spin-sect {
-    padding: 4rem 1rem;
+    padding: 2rem 0;
   }
   .spin-sect__container {
-    width: min(95vw, 360px);
+    transform: scale(0.65);
+    width: 600px; /* Keep base calculations intact, just scale it */
+    max-width: none;
   }
-  .ref-pill { font-size: 1rem; padding: 0.3rem 1rem; }
-  .pill-left { left: -8%; }
-  .pill-right-top { right: -6%; }
-  .pill-right-bottom { right: -4%; }
-  .spin-center { width: 100px; height: 100px; }
-  .ring--outer text { font-size: 28px; }
-  .ring--middle text { font-size: 22px; }
-  .ring--inner text { font-size: 16px; }
 }
 
 @media (max-width: 480px) {
-  .spin-sect {
-    padding: 3rem 0.5rem;
-  }
   .spin-sect__container {
-    width: min(90vw, 280px);
+    transform: scale(0.48);
   }
-  .ref-pill {
-    font-size: 0.8rem;
-    padding: 0.25rem 0.8rem;
-    border-width: 2px;
-    box-shadow: 2px 2px 0 var(--color-border-thick);
-  }
-  .spin-center { width: 80px; height: 80px; }
-  .ring--outer text { font-size: 22px; }
-  .ring--middle text { font-size: 18px; }
-  .ring--inner text { font-size: 12px; }
-  .pill-left { left: -5%; }
-  .pill-right-top { right: -3%; }
-  .pill-right-bottom { right: -2%; }
 }

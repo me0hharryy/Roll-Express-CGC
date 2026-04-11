@@ -133,7 +133,12 @@
   color: var(--color-text-dark);
   cursor: pointer;
   padding: 0.5rem;
-  z-index: 1001; /* Above logo if needed */
+  z-index: 1001;
+}
+
+/* Hidden on desktop, shown on mobile via media query */
+.navbar__mobile-logo {
+  display: none;
 }
 
 /* Mobile Tray Drawer */
@@ -162,39 +167,80 @@
 @media (max-width: 900px) {
   .navbar-pill {
     top: 10px !important;
-    border-radius: 24px;
+    border-radius: 20px;
     width: calc(100% - 24px) !important;
     transition: border-radius 0.3s ease;
   }
+
   .navbar__container {
-    padding: 0.5rem 1rem;
-    min-height: 60px;
+    padding: 0.4rem 0.8rem;
+    min-height: 48px;
+    position: relative;
   }
-  
+
+  /* Hide desktop nav links and the MENU button */
   .desktop-link,
   .navbar__right {
     display: none !important;
   }
 
-  .navbar__hamburger {
-    display: block;
+  /* Hide the overflowing centered logo on mobile */
+  .navbar__center {
+    display: none !important;
   }
 
-  .navbar__center {
-    justify-content: center;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+  /* Repurpose navbar__left: logo-left layout */
+  .navbar__left {
+    flex: 1;
+    justify-content: space-between;
+    width: 100%;
   }
-  
-  .navbar__logo-clean {
-    height: 120px;
-    top: 50%;
+
+  /* Show the mobile inline logo */
+  .navbar__mobile-logo {
+    display: flex;
+    align-items: center;
+  }
+  .navbar__mobile-logo img {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(62, 39, 35, 0.3));
+  }
+
+  /* Hamburger on right */
+  .navbar__hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+  }
+  .navbar__hamburger svg {
+    width: 22px;
+    height: 22px;
   }
 }
 
 @media (max-width: 480px) {
-  .navbar__logo-clean {
-    height: 100px;
+  .navbar-pill {
+    width: calc(100% - 16px) !important;
+    border-radius: 16px;
+  }
+  .navbar__container {
+    min-height: 44px;
+    padding: 0.3rem 0.6rem;
+  }
+  .navbar__mobile-logo img {
+    height: 36px;
+  }
+  .navbar__hamburger {
+    width: 32px;
+    height: 32px;
+  }
+  .navbar__hamburger svg {
+    width: 20px;
+    height: 20px;
   }
 }

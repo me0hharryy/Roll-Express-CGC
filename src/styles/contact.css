@@ -205,3 +205,39 @@
     border-width: 3px;
   }
 }
+
+/* Toast notifications */
+.contact__toast {
+  margin-top: 1.5rem;
+  padding: 1.2rem 2rem;
+  border-radius: 16px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  border: 3px solid var(--color-border-thick);
+  text-align: center;
+}
+
+.contact__toast.success {
+  background: var(--color-brand-green);
+  color: #fff;
+}
+
+.contact__toast.error {
+  background: #ff6b6b;
+  color: #fff;
+}
+
+/* Disabled state */
+.contact__btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.contact__form input:disabled,
+.contact__form textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

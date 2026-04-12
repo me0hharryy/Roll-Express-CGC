@@ -166,49 +166,48 @@
 
 @media (max-width: 900px) {
   .navbar-pill {
-    top: 10px !important;
-    border-radius: 20px;
+    top: 8px !important;
+    border-radius: 100px;
     width: calc(100% - 24px) !important;
     transition: border-radius 0.3s ease;
+    overflow: visible; /* Let the logo pop out */
   }
 
   .navbar__container {
-    padding: 0.4rem 0.8rem;
-    min-height: 48px;
+    padding: 0.3rem 1rem;
+    min-height: 44px;
     position: relative;
   }
 
-  /* Hide desktop nav links and the MENU button */
+  /* Hide desktop nav links and MENU button */
   .desktop-link,
   .navbar__right {
     display: none !important;
   }
 
-  /* Hide the overflowing centered logo on mobile */
+  /* Keep the overflowing logo — just scale it down */
   .navbar__center {
+    display: flex !important;
+    position: static;
+    flex: 1;
+    justify-content: center;
+  }
+  .navbar__logo-clean {
+    height: 100px;
+    top: 55%;
+  }
+
+  /* Hide inline mobile logo — we keep the popping one */
+  .navbar__mobile-logo {
     display: none !important;
   }
 
-  /* Repurpose navbar__left: logo-left layout */
+  /* Hamburger sits at far right */
   .navbar__left {
-    flex: 1;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  /* Show the mobile inline logo */
-  .navbar__mobile-logo {
-    display: flex;
-    align-items: center;
-  }
-  .navbar__mobile-logo img {
-    height: 42px;
+    flex: 0 0 auto;
     width: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 4px 8px rgba(62, 39, 35, 0.3));
+    gap: 0;
   }
-
-  /* Hamburger on right */
   .navbar__hamburger {
     display: flex;
     align-items: center;
@@ -216,6 +215,7 @@
     width: 36px;
     height: 36px;
     padding: 0;
+    order: 99; /* Push to end */
   }
   .navbar__hamburger svg {
     width: 22px;
@@ -226,14 +226,14 @@
 @media (max-width: 480px) {
   .navbar-pill {
     width: calc(100% - 16px) !important;
-    border-radius: 16px;
   }
   .navbar__container {
-    min-height: 44px;
-    padding: 0.3rem 0.6rem;
+    min-height: 40px;
+    padding: 0.2rem 0.6rem;
   }
-  .navbar__mobile-logo img {
-    height: 36px;
+  .navbar__logo-clean {
+    height: 80px;
+    top: 50%;
   }
   .navbar__hamburger {
     width: 32px;

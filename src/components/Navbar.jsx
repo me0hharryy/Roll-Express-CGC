@@ -38,18 +38,6 @@ export default function Navbar() {
             <Link to="/about" className="navbar__link desktop-link">ABOUT</Link>
             <Link to="/contact" className="navbar__link desktop-link">CONTACT</Link>
             <Link to="/faq" className="navbar__link desktop-link">FAQ</Link>
-            
-            {/* Mobile-only: inline logo on left */}
-            <Link to="/" className="navbar__mobile-logo" onClick={() => setMenuOpen(false)}>
-              <img src={brandLogo} alt="Roll Express" />
-            </Link>
-
-            {/* Mobile Hamburger Toggle */}
-            <button className="navbar__hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d={menuOpen ? "M18 6L6 18M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
-              </svg>
-            </button>
           </div>
 
           <div className="navbar__center">
@@ -63,6 +51,13 @@ export default function Navbar() {
           <div className="navbar__right">
              <Link to="/menu" className="navbar__btn">MENU</Link>
           </div>
+
+          {/* Mobile Hamburger Toggle — only visible on mobile */}
+          <button className="navbar__hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d={menuOpen ? "M18 6L6 18M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+            </svg>
+          </button>
 
         </div>
 
